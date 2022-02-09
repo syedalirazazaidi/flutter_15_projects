@@ -1,7 +1,4 @@
-# digitalclock
-![!DIGITAL CLOCK](image/myclock.png)
-
-
+# guessthecity
 
 A new Flutter project.
 
