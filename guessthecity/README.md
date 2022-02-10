@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 ![!GUESS A CITY](images/guess.png)
-![!GUESS](images.guessagame.png)
+![!GUESS](images/guessagame.png)
 
 This project is a starting point for a Flutter application.
 
