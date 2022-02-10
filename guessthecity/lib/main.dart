@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessthecity/countries.dart';
 import 'package:guessthecity/countryclass.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,55 +33,50 @@ class GuessCity extends StatefulWidget {
 }
 
 class _GuessCityState extends State<GuessCity> {
-  int _counter = 0;
   bool askUser = false;
-
+  int _questionIndex = 0;
+  int _totalScore = 0;
   final List listCountry = [];
   final ButtonStyle style =
       ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   final ButtonStyle styleCorrect = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20, color: Colors.green));
 
-  void _incrementCounter() {
+  void _resetCounter() {
     setState(() {
-      _counter++;
+      _totalScore = 0;
+      _questionIndex = 0;
     });
+  }
+
+  // _questionIndex+1==_questions.length;
+  _onBasicAlertPressed(context) {
+    Alert(
+      context: context,
+      title: "RFLUTTER ALERT",
+      desc: "Flutter is more awesome with RFlutter Alert.",
+    ).show();
+  }
+
+  alertFunction() {
+    ElevatedButton(
+      child: Text("Click Me"),
+      onPressed: () {
+        Alert(
+                context: context,
+                title: " Alert",
+                desc: "You have already reached end of the list.")
+            .show();
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // listTest.add(Country(name: "Brother Daxin", sex: "Male"));
-    // Country country = Country();
-
-    // listCountry.add(country.countriesJson);
-
-    // void _renderCountry() {
-    //     for (int i = 0; i < listCountry.length; i++) {
-    //       if (listCountry.isNotEmpty) {
-    //        print (listCountry[i]['country']);
-    //
-    //       }
-    //     }
-    //   }
-
-    // var _questions = countries.map((question) =>
-    //     Country(country: question!['country'], city: question!['city'])
-    // ).toList();
-
-
-
-
-
-
-
-
-    // List _questions = countries.map(
-    //       (question) => Country(
-    //       country: question['country'],
-    //       city: question['city'],
-    //
-    // );
-    // ).toList();
+    List _questions = countries
+        .map((question) =>
+            Country(country: question['country'], city: question['city']))
+        .toList();
 
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
@@ -102,8 +98,11 @@ class _GuessCityState extends State<GuessCity> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              child: Text('Score 0/0'),
+              child: Text('Score $_totalScore/$_questionIndex'),
             ),
+            // _questionIndex+1==_questions.length;
+            // _questionIndex + 1 != _questions.length?
+
             SizedBox(height: 20),
             Container(
               width: 340,
@@ -119,7 +118,10 @@ class _GuessCityState extends State<GuessCity> {
                 ],
               ),
               child: Center(
-                  child: Text('Country:',
+                  child: Text(
+                      askUser
+                          ? 'Country:${_questions[_questionIndex].country}'
+                          : 'City:${_questions[_questionIndex].city}',
                       style: TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold))),
             ),
@@ -142,7 +144,22 @@ class _GuessCityState extends State<GuessCity> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        if (_questionIndex + 1 == _questions.length) {
+                          Alert(
+                            context: context,
+                            title: "ALERT",
+                            desc:
+                                "You have already reached to the end of list.",
+                          ).show();
+                          _resetCounter();
+                        } else {
+                          _totalScore++;
+                          _questionIndex++;
+                        }
+                      });
+                    },
                     child: const Text('Correct'),
                   ),
                   ElevatedButton(
@@ -150,7 +167,22 @@ class _GuessCityState extends State<GuessCity> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.red,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        // _questionIndex++;
+                        if (_questionIndex + 1 == _questions.length) {
+                          Alert(
+                            context: context,
+                            title: "ALERT",
+                            desc:
+                                "You have already reached to the end of list.",
+                          ).show();
+                          _resetCounter();
+                        } else {
+                          _questionIndex++;
+                        }
+                      });
+                    },
                     child: const Text('Wrong'),
                   ),
                 ],
@@ -164,7 +196,7 @@ class _GuessCityState extends State<GuessCity> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton(
-            onPressed: _incrementCounter,
+            onPressed: _resetCounter,
             tooltip: 'Reset',
             child: const Text('Reset'),
           ),
