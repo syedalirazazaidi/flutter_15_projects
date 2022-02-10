@@ -63,16 +63,16 @@ class _GuessCityState extends State<GuessCity> {
     //     }
     //   }
 
-    var _questions = countries.map((question) =>
-        Country(country: question!['country'], city: question!['city'])
-    )
-
-
-    .toList();
+    // var _questions = countries.map((question) =>
+    //     Country(country: question!['country'], city: question!['city'])
+    // ).toList();
 
 
 
-        .toList();
+
+
+
+
 
     // List _questions = countries.map(
     //       (question) => Country(
