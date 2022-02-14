@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:guessthecity/countries.dart';
 import 'package:guessthecity/countryclass.dart';
 import 'package:guessthecity/custom_button.dart';
+import 'package:guessthecity/custom_card.dart';
+// import 'package:guessthecity/custom_card.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
@@ -42,7 +44,7 @@ class _GuessCityState extends State<GuessCity> {
       ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   final ButtonStyle styleCorrect = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20, color: Colors.green));
-  List _questions = countries
+   List _questions = countries
       .map((question) =>
           Country(country: question['country']!, city: question['city']!))
       .toList();
@@ -55,13 +57,13 @@ class _GuessCityState extends State<GuessCity> {
   }
 
   // _questionIndex+1==_questions.length;
-  _onBasicAlertPressed(context) {
-    Alert(
-      context: context,
-      title: "RFLUTTER ALERT",
-      desc: "Flutter is more awesome with RFlutter Alert.",
-    ).show();
-  }
+  // _onBasicAlertPressed(context) {
+  //   Alert(
+  //     context: context,
+  //     title: "RFLUTTER ALERT",
+  //     desc: "Flutter is more awesome with RFlutter Alert.",
+  //   ).show();
+  // }
 
   alertFunction() {
     ElevatedButton(
@@ -103,36 +105,39 @@ class _GuessCityState extends State<GuessCity> {
             SizedBox(
               height: 20,
             ),
-            Container(
-              width: 340,
-              height: 160,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 4.0,
-                  ),
-                ],
-              ),
-              child: Center(
-                  child: Text(
-                      askUser
-                          ? 'Country:${_questions[_questionIndex].country}'
-                          : 'City:${_questions[_questionIndex].city}',
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade400))),
-            ),
+              CustomCard(height: 160,width: 340),
+            // Container(
+            //   width: 340,
+            //   height: 160,
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.grey,
+            //         offset: Offset(0.0, 1.0), //(x,y)
+            //         blurRadius: 4.0,
+            //       ),
+            //     ],
+            //   ),
+            //   child: Center(
+            //       child: Text(
+            //           askUser
+            //               ? 'Country:${_questions[_questionIndex].country}'
+            //               : 'City:${_questions[_questionIndex].city}',
+            //           style: TextStyle(
+            //               fontSize: 22,
+            //               fontWeight: FontWeight.bold,
+            //               color: Colors.blue.shade400))),
+            // ),
             SizedBox(height: 10),
-            CustomButton(title:askUser ? "Show Answer" : "Show Question",onPress:(){
-              setState(() {
-                askUser = !askUser;
-              });
-            },
-              backgroundColor:  Colors.blue ),
+            CustomButton(
+                title: askUser ? "Show Answer" : "Show Question",
+                onPress: () {
+                  setState(() {
+                    askUser = !askUser;
+                  });
+                },
+                backgroundColor: Colors.blue),
             // ElevatedButton(
             //   style: style,
             //   onPressed: () {
@@ -147,22 +152,26 @@ class _GuessCityState extends State<GuessCity> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CustomButton(title: 'Correct', onPress: (){
-                    setState(() {
-                      if (_questionIndex + 1 == _questions.length) {
-                        Alert(
-                          context: context,
-                          title: "ALERT",
-                          desc:
-                          "You have already reached to the end of list.",
-                        ).show();
-                        _resetCounter();
-                      } else {
-                        _totalScore++;
-                        _questionIndex++;
-                      }
-                    });
-                  },backgroundColor: Colors.green,),
+                  CustomButton(
+                    title: 'Correct',
+                    onPress: () {
+                      setState(() {
+                        if (_questionIndex + 1 == _questions.length) {
+                          Alert(
+                            context: context,
+                            title: "ALERT",
+                            desc:
+                                "You have already reached to the end of list.",
+                          ).show();
+                          _resetCounter();
+                        } else {
+                          _totalScore++;
+                          _questionIndex++;
+                        }
+                      });
+                    },
+                    backgroundColor: Colors.green,
+                  ),
 
                   //CUSTOMIZE CODE
                   // ElevatedButton(
@@ -188,22 +197,25 @@ class _GuessCityState extends State<GuessCity> {
                   //   },
                   //   child: const Text('Correct'),
                   // ),
-                  CustomButton(title: 'Wrong', onPress: () {
-                    setState(() {
-                      // _questionIndex++;
-                      if (_questionIndex + 1 == _questions.length) {
-                        Alert(
-                          context: context,
-                          title: "ALERT",
-                          desc:
-                          "You have already reached to the end of list.",
-                        ).show();
-                        _resetCounter();
-                      } else {
-                        _questionIndex++;
-                      }
-                    });
-                  },backgroundColor:Colors.red ),
+                  CustomButton(
+                      title: 'Wrong',
+                      onPress: () {
+                        setState(() {
+                          // _questionIndex++;
+                          if (_questionIndex + 1 == _questions.length) {
+                            Alert(
+                              context: context,
+                              title: "ALERT",
+                              desc:
+                                  "You have already reached to the end of list.",
+                            ).show();
+                            _resetCounter();
+                          } else {
+                            _questionIndex++;
+                          }
+                        });
+                      },
+                      backgroundColor: Colors.red),
                   // ElevatedButton(
                   //   // style: styleCorrect,
                   //   style: ElevatedButton.styleFrom(
