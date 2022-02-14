@@ -41,6 +41,10 @@ class _GuessCityState extends State<GuessCity> {
       ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   final ButtonStyle styleCorrect = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20, color: Colors.green));
+  List _questions = countries
+      .map((question) =>
+          Country(country: question['country']!, city: question['city']!))
+      .toList();
 
   void _resetCounter() {
     setState(() {
@@ -73,11 +77,6 @@ class _GuessCityState extends State<GuessCity> {
 
   @override
   Widget build(BuildContext context) {
-    List _questions = countries
-        .map((question) =>
-            Country(country: question['country'], city: question['city']))
-        .toList();
-
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
@@ -100,10 +99,9 @@ class _GuessCityState extends State<GuessCity> {
             Container(
               child: Text('Score $_totalScore/$_questionIndex'),
             ),
-            // _questionIndex+1==_questions.length;
-            // _questionIndex + 1 != _questions.length?
-
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               width: 340,
               height: 160,
@@ -123,7 +121,9 @@ class _GuessCityState extends State<GuessCity> {
                           ? 'Country:${_questions[_questionIndex].country}'
                           : 'City:${_questions[_questionIndex].city}',
                       style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold))),
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade400))),
             ),
             SizedBox(height: 10),
             ElevatedButton(
