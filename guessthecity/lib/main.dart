@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessthecity/countries.dart';
 import 'package:guessthecity/countryclass.dart';
+import 'package:guessthecity/custom_button.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
@@ -126,65 +127,106 @@ class _GuessCityState extends State<GuessCity> {
                           color: Colors.blue.shade400))),
             ),
             SizedBox(height: 10),
-            ElevatedButton(
-              style: style,
-              onPressed: () {
-                setState(() {
-                  askUser = !askUser;
-                });
-              },
-              child: Text(askUser ? "Show Answer" : "Show Question"),
-            ),
+            CustomButton(title:askUser ? "Show Answer" : "Show Question",onPress:(){
+              setState(() {
+                askUser = !askUser;
+              });
+            },
+              backgroundColor:  Colors.blue ),
+            // ElevatedButton(
+            //   style: style,
+            //   onPressed: () {
+            //     setState(() {
+            //       askUser = !askUser;
+            //     });
+            //   },
+            //   child: Text(askUser ? "Show Answer" : "Show Question"),
+            // ),
             SizedBox(height: 10),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        if (_questionIndex + 1 == _questions.length) {
-                          Alert(
-                            context: context,
-                            title: "ALERT",
-                            desc:
-                                "You have already reached to the end of list.",
-                          ).show();
-                          _resetCounter();
-                        } else {
-                          _totalScore++;
-                          _questionIndex++;
-                        }
-                      });
-                    },
-                    child: const Text('Correct'),
-                  ),
-                  ElevatedButton(
-                    // style: styleCorrect,
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        // _questionIndex++;
-                        if (_questionIndex + 1 == _questions.length) {
-                          Alert(
-                            context: context,
-                            title: "ALERT",
-                            desc:
-                                "You have already reached to the end of list.",
-                          ).show();
-                          _resetCounter();
-                        } else {
-                          _questionIndex++;
-                        }
-                      });
-                    },
-                    child: const Text('Wrong'),
-                  ),
+                  CustomButton(title: 'Correct', onPress: (){
+                    setState(() {
+                      if (_questionIndex + 1 == _questions.length) {
+                        Alert(
+                          context: context,
+                          title: "ALERT",
+                          desc:
+                          "You have already reached to the end of list.",
+                        ).show();
+                        _resetCounter();
+                      } else {
+                        _totalScore++;
+                        _questionIndex++;
+                      }
+                    });
+                  },backgroundColor: Colors.green,),
+
+                  //CUSTOMIZE CODE
+                  // ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: Colors.green,
+                  //   ),
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       if (_questionIndex + 1 == _questions.length) {
+                  //         Alert(
+                  //           context: context,
+                  //           title: "ALERT",
+                  //           desc:
+                  //           "You have already reached to the end of list.",
+                  //         ).show();
+                  //         _resetCounter();
+                  //       } else {
+                  //         _totalScore++;
+                  //         _questionIndex++;
+                  //       }
+                  //     });
+                  //
+                  //   },
+                  //   child: const Text('Correct'),
+                  // ),
+                  CustomButton(title: 'Wrong', onPress: () {
+                    setState(() {
+                      // _questionIndex++;
+                      if (_questionIndex + 1 == _questions.length) {
+                        Alert(
+                          context: context,
+                          title: "ALERT",
+                          desc:
+                          "You have already reached to the end of list.",
+                        ).show();
+                        _resetCounter();
+                      } else {
+                        _questionIndex++;
+                      }
+                    });
+                  },backgroundColor:Colors.red ),
+                  // ElevatedButton(
+                  //   // style: styleCorrect,
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: Colors.red,
+                  //   ),
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       // _questionIndex++;
+                  //       if (_questionIndex + 1 == _questions.length) {
+                  //         Alert(
+                  //           context: context,
+                  //           title: "ALERT",
+                  //           desc:
+                  //               "You have already reached to the end of list.",
+                  //         ).show();
+                  //         _resetCounter();
+                  //       } else {
+                  //         _questionIndex++;
+                  //       }
+                  //     });
+                  //   },
+                  //   child: const Text('Wrong'),
+                  // ),
                 ],
               ),
             ),
