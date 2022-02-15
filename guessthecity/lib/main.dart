@@ -88,12 +88,13 @@ class _GuessCityState extends State<GuessCity> {
                       ? 'Country:${_questions[quizScore.questionIndex].country}'
                       : 'City:${_questions[quizScore.questionIndex].city}',
                   style: getCardStyle()),
+              onPress: showAnswer,
             ),
             SizedBox(height: 10),
-            CustomButton(
-                title: askUser ? "Show Answer" : "Show Question",
-                onPress: showAnswer,
-                backgroundColor: Colors.blue),
+            // CustomButton(
+            //     title: askUser ? "Show Answer" : "Show Question",
+            //      onPress: showAnswer,
+            //     backgroundColor: Colors.blue),
             SizedBox(height: 10),
             Container(
               child: Row(
