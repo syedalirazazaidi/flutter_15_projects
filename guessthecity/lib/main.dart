@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:guessthecity/countries.dart';
 import 'package:guessthecity/countryclass.dart';
 import 'package:guessthecity/custom_button.dart';
 import 'package:guessthecity/custom_card.dart';
+import 'package:guessthecity/quiz.dart';
+// import 'package:guessthecity/custom_card.dart';
 // import 'package:guessthecity/custom_card.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -37,45 +41,31 @@ class GuessCity extends StatefulWidget {
 
 class _GuessCityState extends State<GuessCity> {
   bool askUser = false;
-  int _questionIndex = 0;
-  int _totalScore = 0;
+
+  Quiz quizScore = Quiz();
+
   final List listCountry = [];
   final ButtonStyle style =
       ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   final ButtonStyle styleCorrect = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20, color: Colors.green));
-   List _questions = countries
+  List _questions = countries
       .map((question) =>
           Country(country: question['country']!, city: question['city']!))
       .toList();
 
   void _resetCounter() {
     setState(() {
-      _totalScore = 0;
-      _questionIndex = 0;
+      quizScore.resetCounter();
     });
   }
 
-  // _questionIndex+1==_questions.length;
-  // _onBasicAlertPressed(context) {
-  //   Alert(
-  //     context: context,
-  //     title: "RFLUTTER ALERT",
-  //     desc: "Flutter is more awesome with RFlutter Alert.",
-  //   ).show();
-  // }
-
-  alertFunction() {
-    ElevatedButton(
-      child: Text("Click Me"),
-      onPressed: () {
-        Alert(
-                context: context,
-                title: " Alert",
-                desc: "You have already reached end of the list.")
-            .show();
-      },
-    );
+  void showEndAlert() {
+    Alert(
+      context: context,
+      title: "ALERT",
+      desc: "You have already reached to the end of list.",
+    ).show();
   }
 
   @override
@@ -99,54 +89,39 @@ class _GuessCityState extends State<GuessCity> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: Text('Score $_totalScore/$_questionIndex'),
+            CustomCard(
+              width: 320,
+              height: 50,
+              color: Colors.green,
+              bodyWidget: Text(
+                'Score ${quizScore.totalScore}/${quizScore.questionIndex}',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 23),
+              ),
             ),
             SizedBox(
               height: 20,
             ),
-              CustomCard(height: 160,width: 340),
-            // Container(
-            //   width: 340,
-            //   height: 160,
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     boxShadow: [
-            //       BoxShadow(
-            //         color: Colors.grey,
-            //         offset: Offset(0.0, 1.0), //(x,y)
-            //         blurRadius: 4.0,
-            //       ),
-            //     ],
-            //   ),
-            //   child: Center(
-            //       child: Text(
-            //           askUser
-            //               ? 'Country:${_questions[_questionIndex].country}'
-            //               : 'City:${_questions[_questionIndex].city}',
-            //           style: TextStyle(
-            //               fontSize: 22,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.blue.shade400))),
-            // ),
+            CustomCard(
+              height: 180,
+              width: 320,
+              color: Colors.white70,
+              bodyWidget: Text(
+                  askUser
+                      ? 'Country:${_questions[quizScore.questionIndex].country}'
+                      : 'City:${_questions[quizScore.questionIndex].city}',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade400)),
+            ),
             SizedBox(height: 10),
             CustomButton(
                 title: askUser ? "Show Answer" : "Show Question",
-                onPress: () {
-                  setState(() {
-                    askUser = !askUser;
-                  });
-                },
+                onPress: showAnswer,
                 backgroundColor: Colors.blue),
-            // ElevatedButton(
-            //   style: style,
-            //   onPressed: () {
-            //     setState(() {
-            //       askUser = !askUser;
-            //     });
-            //   },
-            //   child: Text(askUser ? "Show Answer" : "Show Question"),
-            // ),
             SizedBox(height: 10),
             Container(
               child: Row(
@@ -154,91 +129,13 @@ class _GuessCityState extends State<GuessCity> {
                 children: [
                   CustomButton(
                     title: 'Correct',
-                    onPress: () {
-                      setState(() {
-                        if (_questionIndex + 1 == _questions.length) {
-                          Alert(
-                            context: context,
-                            title: "ALERT",
-                            desc:
-                                "You have already reached to the end of list.",
-                          ).show();
-                          _resetCounter();
-                        } else {
-                          _totalScore++;
-                          _questionIndex++;
-                        }
-                      });
-                    },
+                    onPress: correctFunc,
                     backgroundColor: Colors.green,
                   ),
-
-                  //CUSTOMIZE CODE
-                  // ElevatedButton(
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Colors.green,
-                  //   ),
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       if (_questionIndex + 1 == _questions.length) {
-                  //         Alert(
-                  //           context: context,
-                  //           title: "ALERT",
-                  //           desc:
-                  //           "You have already reached to the end of list.",
-                  //         ).show();
-                  //         _resetCounter();
-                  //       } else {
-                  //         _totalScore++;
-                  //         _questionIndex++;
-                  //       }
-                  //     });
-                  //
-                  //   },
-                  //   child: const Text('Correct'),
-                  // ),
                   CustomButton(
                       title: 'Wrong',
-                      onPress: () {
-                        setState(() {
-                          // _questionIndex++;
-                          if (_questionIndex + 1 == _questions.length) {
-                            Alert(
-                              context: context,
-                              title: "ALERT",
-                              desc:
-                                  "You have already reached to the end of list.",
-                            ).show();
-                            _resetCounter();
-                          } else {
-                            _questionIndex++;
-                          }
-                        });
-                      },
+                      onPress: wrongFunc,
                       backgroundColor: Colors.red),
-                  // ElevatedButton(
-                  //   // style: styleCorrect,
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Colors.red,
-                  //   ),
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       // _questionIndex++;
-                  //       if (_questionIndex + 1 == _questions.length) {
-                  //         Alert(
-                  //           context: context,
-                  //           title: "ALERT",
-                  //           desc:
-                  //               "You have already reached to the end of list.",
-                  //         ).show();
-                  //         _resetCounter();
-                  //       } else {
-                  //         _questionIndex++;
-                  //       }
-                  //     });
-                  //   },
-                  //   child: const Text('Wrong'),
-                  // ),
                 ],
               ),
             ),
@@ -257,5 +154,36 @@ class _GuessCityState extends State<GuessCity> {
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void correctFunc() {
+    setState(() {
+      // _questionIndex++;
+      if (quizScore.questionIndex + 1 == _questions.length) {
+        showEndAlert();
+        _resetCounter();
+      } else {
+        quizScore.correctFunc();
+      }
+    });
+  }
+
+  void wrongFunc() {
+    setState(() {
+      // _questionIndex++;
+      if (quizScore.questionIndex + 1 == _questions.length) {
+        showEndAlert();
+
+        _resetCounter();
+      } else {
+        quizScore.wrongFunc();
+      }
+    });
+  }
+
+  void showAnswer() {
+    setState(() {
+      askUser = !askUser;
+    });
   }
 }
