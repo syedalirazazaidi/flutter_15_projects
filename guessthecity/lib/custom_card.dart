@@ -10,7 +10,6 @@ class CustomCard extends StatelessWidget {
     this.headingWidget,
     this.boxShadow,
     this.onPress,
-
   });
   final double? width;
   final double? height;
