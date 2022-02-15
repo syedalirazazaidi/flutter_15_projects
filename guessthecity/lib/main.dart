@@ -1,14 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:guessthecity/countries.dart';
 import 'package:guessthecity/countryclass.dart';
 import 'package:guessthecity/custom_button.dart';
 import 'package:guessthecity/custom_card.dart';
 import 'package:guessthecity/quiz.dart';
-// import 'package:guessthecity/custom_card.dart';
-// import 'package:guessthecity/custom_card.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:guessthecity/score_card.dart';
+import 'package:guessthecity/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,14 +57,6 @@ class _GuessCityState extends State<GuessCity> {
     });
   }
 
-  void showEndAlert() {
-    Alert(
-      context: context,
-      title: "ALERT",
-      desc: "You have already reached to the end of list.",
-    ).show();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,12 +65,7 @@ class _GuessCityState extends State<GuessCity> {
         title: Center(
           child: Text(
             widget.title,
-            style: TextStyle(
-              fontSize: 21,
-              color: Colors.white,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Quintessential',
-            ),
+            style: getTextStyle(),
           ),
         ),
       ),
@@ -89,18 +73,9 @@ class _GuessCityState extends State<GuessCity> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomCard(
-              width: 320,
-              height: 50,
-              color: Colors.green,
-              bodyWidget: Text(
-                'Score ${quizScore.totalScore}/${quizScore.questionIndex}',
-                style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 23),
-              ),
-            ),
+            ScoreCard(
+                questionIndex: quizScore.questionIndex,
+                totalScore: quizScore.totalScore),
             SizedBox(
               height: 20,
             ),
@@ -112,10 +87,7 @@ class _GuessCityState extends State<GuessCity> {
                   askUser
                       ? 'Country:${_questions[quizScore.questionIndex].country}'
                       : 'City:${_questions[quizScore.questionIndex].city}',
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade400)),
+                  style: getCardStyle()),
             ),
             SizedBox(height: 10),
             CustomButton(
@@ -160,7 +132,7 @@ class _GuessCityState extends State<GuessCity> {
     setState(() {
       // _questionIndex++;
       if (quizScore.questionIndex + 1 == _questions.length) {
-        showEndAlert();
+        showEndAlert(context);
         _resetCounter();
       } else {
         quizScore.correctFunc();
@@ -172,7 +144,7 @@ class _GuessCityState extends State<GuessCity> {
     setState(() {
       // _questionIndex++;
       if (quizScore.questionIndex + 1 == _questions.length) {
-        showEndAlert();
+        showEndAlert(context);
 
         _resetCounter();
       } else {
