@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GuessCity(title: 'Guess The Capital City'),
+      home: const GuessCity(title: 'Guess The Country Capital'),
     );
   }
 }
