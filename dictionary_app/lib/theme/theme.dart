@@ -6,15 +6,23 @@ abstract class CustomTheme {
       primaryColor: Colors.amber,
       appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey.shade900),
       textTheme: TextTheme(
+
         headline4: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.normal,
           fontSize: 24,
           color: Colors.white,
         ),
         headline5: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 36,
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
           color: Colors.indigo,
         ),
-      ));
+      ),
+    cardTheme: CardTheme(
+      color: Colors.blueGrey.shade900,
+      elevation: 30,
+      shadowColor: Colors.green
+    )
+
+  );
 }

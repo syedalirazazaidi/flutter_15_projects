@@ -1,16 +1,15 @@
+import 'package:dictionary_app/routes.dart';
 import 'package:dictionary_app/screens/DictionaryScreen.dart';
+import 'package:dictionary_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class DictionaryApp extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DictionaryScreen(),
-
-      // home:DictionaryScreen(),
-      // theme: customTheme,
+      initialRoute: DictionaryScreen.routeName,
+      // theme: CustomTheme,
+      onGenerateRoute: CustomRoutes.generateRoute,
     );
   }
 }

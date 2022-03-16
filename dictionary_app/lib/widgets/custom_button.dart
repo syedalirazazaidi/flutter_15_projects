@@ -13,11 +13,9 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: Colors.yellow, padding: EdgeInsets.all(8)),
-      onPressed: () =>onPressed,
-      child:title
-
-    );
+        style: ElevatedButton.styleFrom(
+            primary: Colors.yellow, padding: EdgeInsets.all(8)),
+        onPressed: () => onPressed(),
+        child: title);
   }
 }
