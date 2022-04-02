@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:weatherapp/main.dart';
-import 'package:weatherapp/ui/screens/weather_app.dart';
+import 'package:weatherapp/weather_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

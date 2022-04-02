@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 abstract class CustomTheme {
   static final ThemeData theme = ThemeData(
-primaryColor: Colors.amber
+      scaffoldBackgroundColor: Colors.blueGrey.shade900,
+      primaryColor: Color(0xffEDD5B3),
+      appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
+      textTheme:
+          TextTheme(headline3: TextStyle(fontSize: 24, color: Colors.teal))
       // scaffoldBackgroundColor: Colors.blueGrey.shade900,
-    // primaryColor:[Colors.brown, Colors.indigo.shade200],
+      // primaryColor:[Colors.brown, Colors.indigo.shade200],
       // appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey.shade900),
-        // cardTheme: CardTheme(
-        //     color: Colors.blueGrey.shade900,
-        //     shadowColor: Colors.grey,
-        //     elevation: 30),
+      // cardTheme: CardTheme(
+      //     color: Colors.blueGrey.shade900,
+      //     shadowColor: Colors.grey,
+      //     elevation: 30),
       // textTheme: TextTheme(
       //   headline4: TextStyle(
       //     fontWeight: FontWeight.bold,
@@ -22,5 +26,6 @@ primaryColor: Colors.amber
       //     color: Colors.indigo,
       //   ),
       // )
-  );
+      );
 }
+// Colors.grey.shade50
