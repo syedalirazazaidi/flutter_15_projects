@@ -21,7 +21,7 @@ class WeatherService {
     final cityName=parseData["name"]??'';
 
 
-    print(parseData['name']);
+    print(parseData);
     return DayWeather(country: country,humidity: humidity,wind: wind,temperature: temperature,description: description,cityName:cityName);
 
     //

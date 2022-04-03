@@ -7,6 +7,7 @@ import 'package:weatherapp/core/services/weather_services.dart';
 import 'package:weatherapp/ui/widgets/card_weather.dart';
 import 'package:weatherapp/ui/widgets/custom_search.dart';
 
+import 'package:intl/intl.dart';
 class WeatherScreen extends StatefulWidget {
   @override
   State<WeatherScreen> createState() => _WeatherScreenState();
@@ -36,6 +37,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var day = DateFormat.d().format(DateTime.now());
+    var month = DateFormat.LLLL().format(DateTime.now());
+
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       resizeToAvoidBottomInset: false,
@@ -45,12 +49,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
           child: Center(
             child: Column(
               children: [
+
                 CustomSearch(onSubmit: updateUI),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(AppStrings.AppBarTitle,
-                      style: Theme.of(context).textTheme.headline3),
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text( 'Today, $day $month',
+                  style: TextStyle(color: Colors.indigo,fontSize: 15),),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Text(AppStrings.AppBarTitle,
+                //       style: Theme.of(context).textTheme.headline3),
+                // ),
                 WeatherCard(cityweather),
                 // cityweather!=null? WeatherCard(cityweather!):Container(),
               ],

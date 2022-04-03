@@ -5,8 +5,13 @@ abstract class CustomTheme {
       scaffoldBackgroundColor: Colors.blueGrey.shade900,
       primaryColor: Color(0xffEDD5B3),
       appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
-      textTheme:
-          TextTheme(headline3: TextStyle(fontSize: 24, color: Colors.teal))
+      textTheme: TextTheme(
+        headline3: TextStyle(fontSize: 24, color: Colors.teal),
+        headline2: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+        ),
+      )
       // scaffoldBackgroundColor: Colors.blueGrey.shade900,
       // primaryColor:[Colors.brown, Colors.indigo.shade200],
       // appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey.shade900),
