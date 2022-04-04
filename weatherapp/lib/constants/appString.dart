@@ -5,4 +5,5 @@ class AppStrings {
   static const City = 'City';
   static const Wind = 'Wind';
   static const Humidity = 'Humidity';
+  static const Searching = 'Searching...';
 }

@@ -12,7 +12,11 @@ class WeatherService {
     if (response.statusCode != 200) {
       throw Exception('Error Fetching data from server');
     }
-    final parseData = jsonDecode(response.body) ??'';
+    final  decodeData=jsonDecode(response.body);
+// print(decodeData);
+    final parseData = decodeData.isNotEmpty?decodeData:{};
+// print(parseData);
+    // final parseData = jsonDecode(response.body) ??'';
     final temperature = parseData["main"]['temp']??'';
     final humidity = parseData["main"]['humidity']??'';
     final wind = parseData["wind"]['speed']??'';
@@ -21,26 +25,22 @@ class WeatherService {
     final cityName=parseData["name"]??'';
 
 
-    print(parseData);
+    // print(parseData);
     return DayWeather(country: country,humidity: humidity,wind: wind,temperature: temperature,description: description,cityName:cityName);
 
-    //
 
-    // print(parseData["main"]['temp']);
-    // print(parseData["main"]['humidity']);
-    // print(parseData["wind"]['speed']);
-    //
-    // print(parseData["sys"]['country']);
-    // print('Fetching data completed');
-    // {temp: 297.05, feels_like: 296.8, temp_min: 297.05, temp_max: 297.05, pressure: 1009, humidity: 50}
-    // country ,
-    // city,
-    // wind,
-    // humidity
-    // Uri url = Uri.parse(
-    //     'https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9992d178cf439a1c5e213b04853970bc');
-    // final response = await http.get(url);
-    // print(response.body);
+  }
+  void getLocation()async{
+    print('Fetching location in progress');
+    http.Response locationCity = await http.get(Uri.parse('${Configs.locationApi}?lat=${lat}&lon=${lon}&appid=${Configs.apiKey}'));
+print('get location completed');
+   // final response = await http.get(locationCity);
+
+   if (locationCity.statusCode != 200 || locationCity==null) {
+     throw Exception('Error Fetching location from server');
+   }
+    final  locationData=jsonDecode(locationCity.body);
+   print(locationData);
   }
 }
 // =${city}&appid=${apiKey}

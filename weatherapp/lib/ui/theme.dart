@@ -6,31 +6,17 @@ abstract class CustomTheme {
       primaryColor: Color(0xffEDD5B3),
       appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
       textTheme: TextTheme(
+        headline1: TextStyle(fontSize: 34, color: Colors.red),
         headline3: TextStyle(fontSize: 24, color: Colors.teal),
         headline2: TextStyle(
           fontSize: 16,
           color: Colors.black,
         ),
-      )
-      // scaffoldBackgroundColor: Colors.blueGrey.shade900,
-      // primaryColor:[Colors.brown, Colors.indigo.shade200],
-      // appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey.shade900),
-      // cardTheme: CardTheme(
-      //     color: Colors.blueGrey.shade900,
-      //     shadowColor: Colors.grey,
-      //     elevation: 30),
-      // textTheme: TextTheme(
-      //   headline4: TextStyle(
-      //     fontWeight: FontWeight.bold,
-      //     fontSize: 24,
-      //     color: Colors.white,
-      //   ),
-      //   headline5: TextStyle(
-      //     fontWeight: FontWeight.bold,
-      //     fontSize: 36,
-      //     color: Colors.indigo,
-      //   ),
-      // )
-      );
+      ));
 }
 // Colors.grey.shade50
+
+// style: TextStyle(
+//   fontSize: 33,
+//       color: Colors.brown
+// ),

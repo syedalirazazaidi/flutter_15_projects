@@ -8,6 +8,7 @@ class CustomSearch extends StatelessWidget {
   });
   final void Function(String) onSubmit;
 
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

@@ -2,14 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:weatherapp/constants/appString.dart';
+import 'package:weatherapp/constants/errorString.dart';
 import 'package:weatherapp/core/models/weather.dart';
 
 class WeatherCard extends StatelessWidget {
-  WeatherCard(this.weather);
+  WeatherCard(this.weather, this.isLoading);
   DayWeather? weather;
+  bool isLoading;
 
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
     return Container(
       child: SizedBox(
         height: 400,
@@ -35,48 +39,17 @@ class WeatherCard extends StatelessWidget {
                         child: SizedBox(
                           height: 40,
                           child: Text(
-                            '${weather != null ? weather?.temperature : Container()}\u00B0 ',
-                            style: TextStyle(
-                              fontSize: 33,
-                                  color: Colors.brown
-                            ),
+                            '${weather != null ?
+                            isLoading?AppStrings.Searching: weather?.temperature != null ?'${weather?.temperature}\u00B0':ErrorStrings.na:''} ',
+                            style: TextStyle(fontSize: 33, color: Colors.brown),
                           ),
                         ),
                       ),
 
-                      //   child: Text(
-                      //     '${weather != null ? weather?.temperature : Container()} ',
-                      //     style: TextStyle(
-                      //       // fontSize: 22,
-                      //
-                      //
-                      //       color: Colors.black26,
-                      //     ),
-                      //     textAlign: TextAlign.start,
-                      //   ),
-
-                      // )
-                      // Container(
-                      //
-                      //   child: Text(
-                      //     '${weather != null ? weather?.temperature : Container()} ',
-                      //     style: TextStyle(
-                      //       // fontSize: 22,
-                      //
-                      //
-                      //       color: Colors.black26,
-                      //     ),
-                      //     textAlign: TextAlign.start,
-                      //   ),
-                      //
-                      //
-                      //
-                      // ),
-
                       Container(
                         margin: EdgeInsets.only(right: 50.0),
                         child: Text(
-                          '${weather != null ? weather?.description : Container()} ',
+                          '${weather != null ? weather?.description : ''} ',
                           style: TextStyle(
                             fontSize: 38,
                             color: Colors.cyan,
@@ -89,7 +62,7 @@ class WeatherCard extends StatelessWidget {
                         children: [
                           ListTile(
                             title: Text(
-                              "${AppStrings.Country} |${weather != null ? weather?.country : Container()}",
+                              "${AppStrings.Country} |${weather != null ? weather?.country : ''}",
                               style: Theme.of(context).textTheme.headline2,
                             ),
                             leading: Icon(Icons.flag_outlined),
@@ -98,7 +71,7 @@ class WeatherCard extends StatelessWidget {
                           ListTile(
                             leading: Icon(Icons.location_on_outlined),
                             title: Text(
-                              "${AppStrings.City} | ${weather != null ? weather?.cityName : Container()}",
+                              "${AppStrings.City} | ${weather != null ? weather?.cityName : ''}",
                               style: Theme.of(context).textTheme.headline2,
                             ),
                           ),
@@ -106,7 +79,7 @@ class WeatherCard extends StatelessWidget {
                           ListTile(
                             leading: Icon(Icons.air),
                             title: Text(
-                              "${AppStrings.Wind} | ${weather != null ? weather?.wind : Container()}km/h",
+                              "${AppStrings.Wind} | ${weather != null ? weather?.wind : ''}km/h",
                               style: Theme.of(context).textTheme.headline2,
                             ),
                           ),
@@ -116,7 +89,7 @@ class WeatherCard extends StatelessWidget {
                               Icons.water_damage_outlined,
                             ),
                             title: Text(
-                              "${AppStrings.Humidity} | ${weather != null ? weather?.humidity : Container()}%",
+                              "${AppStrings.Humidity} | ${weather != null ? weather?.humidity : ''}%",
                               style: Theme.of(context).textTheme.headline2,
                             ),
                           ),
