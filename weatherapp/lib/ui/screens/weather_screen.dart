@@ -24,7 +24,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   bool isLoading = false;
   var day = DateFormat.d().format(DateTime.now());
   var month = DateFormat.LLLL().format(DateTime.now());
-  TextEditingController? controller =TextEditingController();
+  TextEditingController? controller = TextEditingController();
   void configLoader() {
     EasyLoading.instance
       ..loadingStyle = EasyLoadingStyle.custom
@@ -71,16 +71,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
   //   });
   // }
 
-
-
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
-
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-
       return Future.error('Location services are disabled.');
     }
 
@@ -88,32 +84,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-
         return Future.error('Location permissions are denied');
       }
     }
-
     if (permission == LocationPermission.deniedForever) {
-
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-
-
-    return await Geolocator.getCurrentPosition();
+    return await Geolocator.getCurrentPosition( desiredAccuracy: LocationAccuracy.best);
   }
-  Future<Position> _getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    return position;
-  }
+
+  // Future<Position> getCurrentLocation() async {
+  //
+  //       Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.best);
+  //   return position;
+  // }
 
   @override
   void initState() {
     super.initState();
-    configLoader();
-    toggleIsLoading();
-    _getCurrentLocation().then((position) {
+    // _determinePosition();
+      configLoader();
+     toggleIsLoading();
+    _determinePosition().then((position) {
       print(position);
       _weatherService
           .getLocation(position.latitude, position.longitude)
@@ -157,8 +151,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
     setState(() {
       cityweather = response;
-
-
     });
     controller?.clear();
     toggleIsLoading();
