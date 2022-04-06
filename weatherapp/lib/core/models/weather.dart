@@ -1,7 +1,7 @@
 class DayWeather {
-  double? temperature;
-  int? humidity;
-  double? wind;
+  dynamic? temperature;
+  dynamic?  humidity;
+  dynamic? wind;
   String? country;
   String? description;
   String?cityName;

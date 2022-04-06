@@ -12,7 +12,6 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final theme = Theme.of(context);
     return Container(
       child: SizedBox(
@@ -39,8 +38,9 @@ class WeatherCard extends StatelessWidget {
                         child: SizedBox(
                           height: 40,
                           child: Text(
-                            '${weather != null ?
-                            isLoading?AppStrings.Searching: weather?.temperature != null ?'${weather?.temperature}\u00B0':ErrorStrings.na:''} ',
+                            '${weather != null ? weather?.temperature : ''}C\u00B0',
+                            // isLoading?AppStrings.Searching: weather?.temperature != null ?'${weather?.temperature}\u00B0':ErrorStrings.na:''} '
+
                             style: TextStyle(fontSize: 33, color: Colors.brown),
                           ),
                         ),

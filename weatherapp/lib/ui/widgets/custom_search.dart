@@ -5,9 +5,10 @@ import 'package:weatherapp/constants/appString.dart';
 class CustomSearch extends StatelessWidget {
   CustomSearch({
     required this.onSubmit,
+    this.controller,
   });
   final void Function(String) onSubmit;
-
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class CustomSearch extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
+        controller: controller,
         onSubmitted: onSubmit,
         decoration: InputDecoration(
           hintStyle: TextStyle(fontSize: 17),

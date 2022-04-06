@@ -5,7 +5,8 @@ import 'package:weatherapp/core/models/weather.dart';
 
 class WeatherService {
   Future<DayWeather> getData(String city) async {
-    Uri url = Uri.parse('${Configs.baseUrl}=${city}&appid=${Configs.apiKey}');
+    Uri url = Uri.parse(
+        '${Configs.baseUrl}=${city}&units=metric&appid=${Configs.apiKey}');
     print('Fetching data in progress');
     final response = await http.get(url);
 
@@ -16,9 +17,11 @@ class WeatherService {
 
     final parseData = decodeData.isNotEmpty ? decodeData : {};
 
-    final temperature = parseData["main"]['temp'] ?? '';
-    final humidity = parseData["main"]['humidity'] ?? '';
-    final wind = parseData["wind"]['speed'] ?? '';
+    final temperature = parseData["main"]['temp'] as dynamic ?? '';
+
+    final humidity = parseData["main"]['humidity'] as dynamic ?? '';
+
+    final wind = parseData["wind"]['speed'] as dynamic ?? '';
     final country = parseData["sys"]['country'] ?? '';
     final description = parseData['weather'][0]['description'] ?? '';
     final cityName = parseData["name"] ?? '';
@@ -38,8 +41,7 @@ class WeatherService {
 
       http.Response locationCity = await http.get(Uri.parse(
           // 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${Configs.apiKey}'
-        'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=9992d178cf439a1c5e213b04853970bc'
-      ));
+          'https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&units=metric&appid=${Configs.apiKey}'));
 
       if (locationCity.statusCode != 200 || locationCity == null) {
         throw Exception('Error Fetching location from server');
@@ -66,4 +68,3 @@ class WeatherService {
     }
   }
 }
-
