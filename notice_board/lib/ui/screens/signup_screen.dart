@@ -1,30 +1,38 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notice_board/constants/appConfig.dart';
 import 'package:notice_board/constants/appString.dart';
-import 'package:notice_board/ui/screens/notice_board_screen.dart';
-import 'package:notice_board/ui/screens/signup_screen.dart';
+import 'package:notice_board/core/services/auth.dart';
+import 'package:notice_board/ui/screens/login_screen.dart';
 import 'package:notice_board/ui/widget/custom_button.dart';
 import 'package:notice_board/ui/widget/custom_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const routeName='/login';
+class SignUpScreen extends StatefulWidget {
+  static const routeName = '/signup';
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  AuthService authService = AuthService();
+  String email = '';
+  String password = '';
+  String repassword = '';
+  Future<void> signUp() async {
+    final user = await authService.createUser(email, password);
+    print(user);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(AppStrings.appTitle),
+        title: Text(AppStrings.signup),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 50.0, left: 12, right: 12),
+          padding: const EdgeInsets.all(12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,8 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     size: 32,
                   ),
                   hintText: AppStrings.emailInput,
-                  onChange: (string) {}),
-
+                  onChange: (String value) {
+                    setState(() {
+                      email = value;
+                    });
+                  }),
               CustomTextField(
                 leading: Icon(
                   Icons.password_outlined,
@@ -46,34 +57,40 @@ class _LoginScreenState extends State<LoginScreen> {
                   size: 32,
                 ),
                 hintText: AppStrings.passwordInput,
-                onChange: (string) {},
+                onChange: (String value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
+                obscureText: true,
+              ),
+              CustomTextField(
+                leading: Icon(
+                  Icons.password_outlined,
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                  size: 32,
+                ),
+                hintText: AppStrings.reenterpassword,
+                onChange: (String value) {
+                  setState(() {
+                    repassword = value;
+                  });
+                },
                 obscureText: true,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomButton(
-                    title: Text(
-                      AppStrings.signup,
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    onPress: () {
-                      Navigator.pushNamed(context, SignUpScreen.routeName);
-                    },
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       title: Text(
-                        AppStrings.login,
+                        AppStrings.register,
                         style: TextStyle(
                             color: Theme.of(context).scaffoldBackgroundColor),
                       ),
                       backgroundColor: Theme.of(context).primaryColor,
-                      onPress: () {
-                        Navigator.pushNamed(context, NoticeBoardScreen.routeName);
-                      },
+                      onPress: signUp,
                     ),
                   )
                 ],
