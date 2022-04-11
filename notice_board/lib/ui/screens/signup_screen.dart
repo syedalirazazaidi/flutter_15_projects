@@ -1,27 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/constants/appConfig.dart';
 import 'package:notice_board/constants/appString.dart';
+import 'package:notice_board/constants/error.dart';
 import 'package:notice_board/core/services/auth.dart';
 import 'package:notice_board/ui/screens/login_screen.dart';
 import 'package:notice_board/ui/widget/custom_button.dart';
 import 'package:notice_board/ui/widget/custom_text_field.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/signup';
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
-
 class _SignUpScreenState extends State<SignUpScreen> {
   AuthService authService = AuthService();
   String email = '';
   String password = '';
   String repassword = '';
   Future<void> signUp() async {
-    final user = await authService.createUser(email, password);
-    print(user);
+    try {
+      final user = await authService.createUser(email, password);
+      if (user != null) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      Alert(
+              context: context,
+              title: ErrorString.error,
+              desc: ErrorString.userCreationFailed)
+          .show();
+    }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

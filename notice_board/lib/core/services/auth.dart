@@ -40,13 +40,16 @@ class AuthService extends AuthBase {
   User? get currentUser => _auth.currentUser;
 
   @override
-  Future<void> login(String email, String password) async {
+  Future<User?> login(String email, String password) async {
     try {
       final response = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+
       if (response.user == null) {
         throw Exception(ErrorString.loginFailed);
       }
+
+      return response.user;
     } catch (e) {
       debugPrint('${ErrorString.loginFailed}$e');
       rethrow;
