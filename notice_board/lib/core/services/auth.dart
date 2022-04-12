@@ -36,7 +36,7 @@ class AuthService extends AuthBase {
   }
 
   @override
-  // TODO: implement currentUser
+
   User? get currentUser => _auth.currentUser;
 
   @override

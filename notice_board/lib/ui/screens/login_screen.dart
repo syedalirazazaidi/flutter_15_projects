@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: AppStrings.passwordInput,
                 onChange: (String val) {
                   setState(() {
-                    email = val;
+                    password = val;
                   });
                 },
                 obscureText: true,

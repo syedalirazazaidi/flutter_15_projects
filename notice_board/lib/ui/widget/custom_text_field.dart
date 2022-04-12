@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class CustomTextField extends StatelessWidget {
   CustomTextField({
     required this.onChange,
@@ -29,11 +27,12 @@ class CustomTextField extends StatelessWidget {
         ),
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.secondary),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide:
-            BorderSide(color: Theme.of(context).colorScheme.secondary),
+                BorderSide(color: Theme.of(context).colorScheme.secondary),
           ),
           filled: true,
           fillColor: Colors.white,

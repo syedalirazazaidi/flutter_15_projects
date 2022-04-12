@@ -13,6 +13,7 @@ class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
+
 class _SignUpScreenState extends State<SignUpScreen> {
   AuthService authService = AuthService();
   String email = '';
@@ -32,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .show();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

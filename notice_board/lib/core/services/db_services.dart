@@ -4,6 +4,8 @@ import 'package:notice_board/constants/error.dart';
 
 abstract class DBBase {
   Future<String?> addNotification(String noticeText, String userId);
+  Future<String?> deleteData(String userId);
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataStream();
 }
 
@@ -31,4 +33,11 @@ class DBService extends DBBase {
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataStream() =>
       _dbService.collection(AppConfig.collectionName).snapshots();
+
+  @override
+  Future<String?> deleteData(Timestamp userId) async {
+    print('$userId lllllll');
+    await _dbService.collection(AppConfig.collectionName).doc(userId).delete();
+
+  }
 }

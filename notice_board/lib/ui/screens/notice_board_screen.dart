@@ -22,6 +22,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
   String noticeText = '';
   AuthService _authService = AuthService();
   DBService _dbservice = DBService();
+  TextEditingController messageInputField = TextEditingController();
 
   Future<void> signout() async {
     await _authService.signOut();
@@ -31,9 +32,9 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
 
   Future<void> addData() async {
     try {
-      final response = await _dbservice.addNotification(
-          noticeText, _authService.currentUser!.uid);
-      print(response);
+      await _dbservice.addNotification(
+          noticeText, _authService.currentUser!.email!);
+      messageInputField.clear();
     } catch (e) {
       Alert(
           context: context,
@@ -71,11 +72,13 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                  child: CustomTextField(onChange: (String val) {
-                    setState(() {
-                      noticeText = val;
-                    });
-                  }),
+                  child: CustomTextField(
+                      controller: messageInputField,
+                      onChange: (String val) {
+                        setState(() {
+                          noticeText = val;
+                        });
+                      }),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -90,3 +93,25 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
         ));
   }
 }
+// import 'package:flutter/material.dart';
+// import 'package:notice_board/core/services/auth.dart';
+//
+// class NoticeBoardScreen extends StatefulWidget {
+//   static const routeName = '/notices';
+//   AuthService _authService = AuthService();
+//
+//
+//
+//   @override
+//   State<NoticeBoardScreen> createState() => _NoticeBoardScreenState();
+// }
+//
+// class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Text('ko'),
+//
+//     );
+//   }
+// }
