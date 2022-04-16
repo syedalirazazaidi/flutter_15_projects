@@ -36,6 +36,7 @@ class Notices extends StatelessWidget {
               ),
             );
           }
+           print(snapshot.data?.docs.map((e) => print(e.id)));
 
           List<Widget> messages = snapshot.data?.docs
                   .map(
@@ -45,12 +46,13 @@ class Notices extends StatelessWidget {
                         createdAt: record['createdAt'],
                         createdBy: record['createdBy'],
                         message: record['message'],
+                        id:record.id
+
                       ),
                     ),
                   )
                   .toList() ??
               [];
-
           return Expanded(child: ListView(children: messages));
         });
   }

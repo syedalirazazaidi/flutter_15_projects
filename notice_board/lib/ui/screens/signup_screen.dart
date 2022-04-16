@@ -22,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> signUp() async {
     try {
       final user = await authService.createUser(email, password);
+      print('$user ----------------------');
       if (user != null) {
         Navigator.pop(context);
       }

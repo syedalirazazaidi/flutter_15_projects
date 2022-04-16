@@ -12,10 +12,7 @@ abstract class AuthBase {
 class AuthService extends AuthBase {
   static final AuthService instance = AuthService._internal();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-   AuthService._internal(){
-
-
-  }
+  AuthService._internal() {}
 
   factory AuthService() {
     return instance;
@@ -35,12 +32,13 @@ class AuthService extends AuthBase {
     }
   }
 
-  @override
 
+  @override
   User? get currentUser => _auth.currentUser;
 
   @override
   Future<User?> login(String email, String password) async {
+
     try {
       final response = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -48,7 +46,6 @@ class AuthService extends AuthBase {
       if (response.user == null) {
         throw Exception(ErrorString.loginFailed);
       }
-
       return response.user;
     } catch (e) {
       debugPrint('${ErrorString.loginFailed}$e');
@@ -61,4 +58,3 @@ class AuthService extends AuthBase {
     await _auth.signOut();
   }
 }
-

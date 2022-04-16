@@ -24,20 +24,23 @@ class DBService extends DBBase {
       'createdBy': userId,
       'createdAt': DateTime.now()
     });
+     print('$_dbService 000000000000000');
+
     if (response.id == null) {
       throw Exception(ErrorString.userCreationFailed);
     }
     return response.id;
   }
 
+
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataStream() =>
       _dbService.collection(AppConfig.collectionName).snapshots();
 
   @override
-  Future<String?> deleteData(Timestamp userId) async {
-    print('$userId lllllll');
+  Future<String?> deleteData(String userId) async {
     await _dbService.collection(AppConfig.collectionName).doc(userId).delete();
-
   }
+
+
 }

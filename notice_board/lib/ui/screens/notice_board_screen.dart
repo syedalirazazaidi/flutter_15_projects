@@ -23,7 +23,6 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
   AuthService _authService = AuthService();
   DBService _dbservice = DBService();
   TextEditingController messageInputField = TextEditingController();
-
   Future<void> signout() async {
     await _authService.signOut();
     Navigator.pushNamedAndRemoveUntil(
