@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ DBService _dbService = DBService();
 
 Future<void> deleteData(id) async {
   try {
+
     await _dbService.deleteData(id);
   } catch (e) {
     print(e);
@@ -43,8 +45,7 @@ class _NoticeBubbleState extends State<NoticeBubble> {
   Widget build(BuildContext context) {
     // print();
     final currentuser = _authService.currentUser?.email;
-    print(currentuser);
-    // print('${} authentication');
+
     return Container(
         child: ListTile(
           title: Text(
@@ -59,18 +60,14 @@ class _NoticeBubbleState extends State<NoticeBubble> {
             width: 100,
             child: Row(
               children: [
-                if (_authService.currentUser?.email != null) ...[
-
+                if (currentuser == widget.createdBy) ...[
                   IconButton(
                       onPressed: () => {editData()}, icon: Icon(Icons.edit)),
                   IconButton(
                       onPressed: () => {deleteData(widget.id)},
                       icon: Icon(Icons.delete)),
-                ] else if (_authService.currentUser?.email == null) ...[
-                  IconButton(
-                      onPressed: () => {}, icon: Icon(Icons.flag)),
-
-                ]
+                ] else
+                  Container()
               ],
             ),
           ),

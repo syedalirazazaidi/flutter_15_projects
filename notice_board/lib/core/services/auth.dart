@@ -36,8 +36,10 @@ class AuthService extends AuthBase {
   @override
   User? get currentUser => _auth.currentUser;
 
+
   @override
   Future<User?> login(String email, String password) async {
+    print('${_auth.currentUser} --++++++++++++++++++++---------');
 
     try {
       final response = await _auth.signInWithEmailAndPassword(
