@@ -1,9 +1,9 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notice_board/constants/error.dart';
 import 'package:notice_board/core/services/db_services.dart';
+import 'package:notice_board/ui/screens/edit_screen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../core/services/auth.dart';
@@ -29,14 +29,18 @@ DBService _dbService = DBService();
 
 Future<void> deleteData(id) async {
   try {
-
     await _dbService.deleteData(id);
   } catch (e) {
     print(e);
   }
 }
 
-Future<void> editData() async {}
+Future<void> editData(data) async {
+  print("$data EDITED");
+
+
+
+}
 
 class _NoticeBubbleState extends State<NoticeBubble> {
   AuthService _authService = AuthService();
@@ -62,7 +66,21 @@ class _NoticeBubbleState extends State<NoticeBubble> {
               children: [
                 if (currentuser == widget.createdBy) ...[
                   IconButton(
-                      onPressed: () => {editData()}, icon: Icon(Icons.edit)),
+                      onPressed: () =>
+                      // {editData(widget)},
+            // Navigator.pushNamed(context, EditScreen.routeName)
+
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EditScreen(editid:widget.id),
+        ))
+                      ,
+
+
+                      icon: Icon(Icons.edit)
+                  ),
+
                   IconButton(
                       onPressed: () => {deleteData(widget.id)},
                       icon: Icon(Icons.delete)),
@@ -70,8 +88,13 @@ class _NoticeBubbleState extends State<NoticeBubble> {
                   Container()
               ],
             ),
+
           ),
+
+
         ),
+
+
         decoration: BoxDecoration(
             border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.only(

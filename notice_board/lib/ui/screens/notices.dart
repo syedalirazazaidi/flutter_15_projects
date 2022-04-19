@@ -36,19 +36,16 @@ class Notices extends StatelessWidget {
               ),
             );
           }
-           print(snapshot.data?.docs.map((e) => print(e.id)));
 
           List<Widget> messages = snapshot.data?.docs
                   .map(
                     (record) => Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: NoticeBubble(
-                        createdAt: record['createdAt'],
-                        createdBy: record['createdBy'],
-                        message: record['message'],
-                        id:record.id
-
-                      ),
+                          createdAt: record['createdAt'],
+                          createdBy: record['createdBy'],
+                          message: record['message'],
+                          id: record.id),
                     ),
                   )
                   .toList() ??
