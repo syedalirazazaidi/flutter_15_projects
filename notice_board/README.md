@@ -5,7 +5,7 @@ A new Flutter project.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
-![todo](asset/images/todoimg.png)
+![todo](assets/images/todoimg.png)
 
 A few resources to get you started if this is your first Flutter project:
 
